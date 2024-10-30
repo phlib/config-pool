@@ -1,6 +1,11 @@
 <?php
 
-class Zxm_HashStrategy_Ordered implements Zxm_HashStrategy_Interface
+namespace Phlib\ConfigPool\HashStrategy;
+
+/**
+ * @package Phlib\ConfigPool
+ */
+class Ordered implements HashStrategyInterface
 {
     /**
      * @var array
@@ -22,7 +27,7 @@ class Zxm_HashStrategy_Ordered implements Zxm_HashStrategy_Interface
      *
      * @param string $node
      * @param int $weight
-     * @return \Zxm_HashStrategy_Ordered
+     * @return static
      */
     public function add($node, $weight = 1)
     {
@@ -49,7 +54,7 @@ class Zxm_HashStrategy_Ordered implements Zxm_HashStrategy_Interface
      * Remove
      *
      * @param string $node
-     * @return \Zxm_HashStrategy_Ordered
+     * @return static
      */
     public function remove($node)
     {

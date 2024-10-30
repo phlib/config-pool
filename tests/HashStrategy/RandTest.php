@@ -2,38 +2,43 @@
 
 declare(strict_types=1);
 
+namespace Phlib\ConfigPool\HashStrategy;
+
 use PHPUnit\Framework\TestCase;
 
-class Zxm_HashStrategy_RandTest extends TestCase
+/**
+ * @package Phlib\ConfigPool
+ */
+class RandTest extends TestCase
 {
     public function testAddReturn()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         static::assertEquals($hs, $hs->add('server1'));
     }
 
     public function testRemoveReturn()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         static::assertEquals($hs, $hs->remove('server1'));
     }
 
     public function testGetReturn()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         static::assertEquals([], $hs->get('key1'));
     }
 
     public function testGetWithData()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $hs->add('server1');
         static::assertEquals(['server1'], $hs->get('key1'));
     }
 
     public function testRemoveWithData()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $hs->add('server1');
         static::assertEquals(['server1'], $hs->get('key1'));
         $hs->remove('server1');
@@ -42,7 +47,7 @@ class Zxm_HashStrategy_RandTest extends TestCase
 
     public function testRemoveWithDataTwo()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $hs->add('server1');
         $hs->add('server2');
 
@@ -53,7 +58,7 @@ class Zxm_HashStrategy_RandTest extends TestCase
 
     public function testGetWithDataMax()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $hs->add('server1');
         $hs->add('server2');
         $hs->add('server3');
@@ -63,7 +68,7 @@ class Zxm_HashStrategy_RandTest extends TestCase
 
     public function testGetWithRandData()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $nodeList = ['server1', 'server2', 'server3'];
         foreach ($nodeList as $node) {
             $hs->add($node);
@@ -83,7 +88,7 @@ class Zxm_HashStrategy_RandTest extends TestCase
 
     public function testGetWeight()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $hs->add('server1', 5);
         $hs->add('server2', 2);
         $hs->add('server3', 3);
@@ -108,7 +113,7 @@ class Zxm_HashStrategy_RandTest extends TestCase
 
     public function testGetWeightChange()
     {
-        $hs = new Zxm_HashStrategy_Rand();
+        $hs = new Rand();
         $hs->add('server1', 0);
         $hs->add('server2', 0);
         $hs->add('server3', 1);

@@ -1,20 +1,11 @@
 <?php
 
+namespace Phlib\ConfigPool\HashStrategy;
+
 /**
- * Used for consistent hashing a number of nodes
- *
- * === Example ===
- * $pool = new Zxm_HashStrategy_Consistent();
- * $pool->add(0);
- * $pool->add(1);
- * $pool->add(2);
- * var_dump($pool->get('hello', 2));
- *
- * @category    Zxm
- * @package     Zxm_HashStrategy
- * @author      James Dempster (letssurf@gmail.com)
+ * @package Phlib\ConfigPool
  */
-class Zxm_HashStrategy_Consistent implements Zxm_HashStrategy_Interface
+class Consistent implements HashStrategyInterface
 {
     /**
      * @var int
@@ -64,7 +55,7 @@ class Zxm_HashStrategy_Consistent implements Zxm_HashStrategy_Interface
      *
      * @param string $node
      * @param int $weight
-     * @return Zxm_HashStrategy_Consistent
+     * @return static
      */
     public function add($node, $weight = 1)
     {
@@ -92,7 +83,7 @@ class Zxm_HashStrategy_Consistent implements Zxm_HashStrategy_Interface
      * Remove
      *
      * @param string $node
-     * @return Zxm_HashStrategy_Consistent
+     * @return static
      */
     public function remove($node)
     {

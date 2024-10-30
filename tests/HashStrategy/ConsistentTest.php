@@ -2,38 +2,43 @@
 
 declare(strict_types=1);
 
+namespace Phlib\ConfigPool\HashStrategy;
+
 use PHPUnit\Framework\TestCase;
 
-class Zxm_HashStrategy_ConsistentTest extends TestCase
+/**
+ * @package Phlib\ConfigPool
+ */
+class ConsistentTest extends TestCase
 {
     public function testAddReturn()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         static::assertEquals($pool, $pool->add('server1'));
     }
 
     public function testRemoveReturn()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         static::assertEquals($pool, $pool->remove('server1'));
     }
 
     public function testGetReturn()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         static::assertEquals([], $pool->get('key1'));
     }
 
     public function testGetWithData()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         static::assertEquals(['server1'], $pool->get('key1'));
     }
 
     public function testGetWithDataTwo()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
         static::assertEquals(['server1'], $pool->get('key1'));
@@ -43,7 +48,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
 
     public function testRemoveWithData()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         static::assertEquals(['server1'], $pool->get('key1'));
         $pool->remove('server1');
@@ -52,7 +57,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
 
     public function testRemoveWithDataTwo()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
         static::assertEquals(['server1', 'server2'], $pool->get('key1', 2));
@@ -62,7 +67,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
 
     public function testGetWithDataMax()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
         $pool->add('server3');
@@ -75,7 +80,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
      */
     public function testGetWithRandData()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
         $pool->add('server3');
@@ -97,7 +102,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
      */
     public function testGetWithRandDataOther()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
         $pool->add('server3');
@@ -116,7 +121,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
 
     public function testGetWeight()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1', 1);
         $pool->add('server2', 10);
         $pool->add('server3', 1);
@@ -126,7 +131,7 @@ class Zxm_HashStrategy_ConsistentTest extends TestCase
 
     public function testGetWeightChange()
     {
-        $pool = new Zxm_HashStrategy_Consistent();
+        $pool = new Consistent();
         $pool->add('server1', 1);
         $pool->add('server2', 10);
         $pool->add('server3', 1);

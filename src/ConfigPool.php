@@ -1,24 +1,14 @@
 <?php
 
+namespace Phlib\ConfigPool;
+
+use Phlib\ConfigPool\HashStrategy\HashStrategyInterface;
+use Phlib\ConfigPool\HashStrategy\Ordered;
+
 /**
- * Pool Config
- *
- * Used for consistent hasing a pool of configs
- *
- * === Example ===
- * $config = array(
- *      'server1' => array('hostname' => 'localhost', 'port' => 11211),
- *      'server2' => array('hostname' => 'localhost', 'port' => 11212),
- *      'server3' => array('hostname' => 'localhost', 'port' => 11213),
- * );
- * $pool = new Zxm_Pool_Config($config);
- * var_dump($pool->getConfigList('some key', 2));
- *
- * @category    Zxm
- * @package     Zxm_Pool
- * @author      James Dempster (letssurf@gmail.com)
+ * @package Phlib\ConfigPool
  */
-class Zxm_Pool_Config
+class ConfigPool
 {
     /**
      * @var array
@@ -31,18 +21,18 @@ class Zxm_Pool_Config
     protected $calculatedConfig = [];
 
     /**
-     * @var Zxm_HashStrategy_Interface
+     * @var HashStrategyInterface
      */
     protected $hashStrategy;
 
-    public function __construct(array $config, Zxm_HashStrategy_Interface $hashStrategy = null)
+    public function __construct(array $config, HashStrategyInterface $hashStrategy = null)
     {
         // store the config array for later retrieval
         $this->config = $config;
 
         if ($hashStrategy === null) {
             // no hasher was provided
-            $hashStrategy = new Zxm_HashStrategy_Ordered();
+            $hashStrategy = new Ordered();
         }
 
         // setup the hashing
@@ -52,9 +42,9 @@ class Zxm_Pool_Config
     /**
      * Set hash strategy
      *
-     * @return \Zxm_Pool_Config
+     * @return $this
      */
-    public function setHashStrategy(Zxm_HashStrategy_Interface $hashStrategy)
+    public function setHashStrategy(HashStrategyInterface $hashStrategy)
     {
         // loop the config adding the key as a node
         foreach ($this->config as $key => $value) {

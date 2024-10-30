@@ -1,13 +1,18 @@
 <?php
 
-interface Zxm_HashStrategy_Interface
+namespace Phlib\ConfigPool\HashStrategy;
+
+/**
+ * @package Phlib\ConfigPool
+ */
+interface HashStrategyInterface
 {
     /**
      * Add
      *
      * @param string $node
      * @param int $weight
-     * @return Zxm_HashStrategy_Interface
+     * @return static
      */
     public function add($node, $weight = 1);
 
@@ -15,7 +20,7 @@ interface Zxm_HashStrategy_Interface
      * Remove
      *
      * @param string $node
-     * @return Zxm_HashStrategy_Interface
+     * @return static
      */
     public function remove($node);
 

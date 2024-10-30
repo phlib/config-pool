@@ -2,9 +2,15 @@
 
 declare(strict_types=1);
 
+namespace Phlib\ConfigPool;
+
+use Phlib\ConfigPool\HashStrategy\Ordered;
 use PHPUnit\Framework\TestCase;
 
-class Zxm_Pool_ConfigTest extends TestCase
+/**
+ * @package Phlib\ConfigPool
+ */
+class ConfigPoolTest extends TestCase
 {
     /**
      * @var array
@@ -46,7 +52,7 @@ class Zxm_Pool_ConfigTest extends TestCase
 
     public function testGetConfigListLevelOne()
     {
-        $hashStrategy = $this->createMock(Zxm_HashStrategy_Ordered::class);
+        $hashStrategy = $this->createMock(Ordered::class);
         $hashStrategy->expects(static::exactly(3))
             ->method('add');
 
@@ -58,7 +64,7 @@ class Zxm_Pool_ConfigTest extends TestCase
             )
             ->willReturn([0]);
 
-        $poolConfig = new Zxm_Pool_Config($this->config, $hashStrategy);
+        $poolConfig = new ConfigPool($this->config, $hashStrategy);
 
         $configList = $poolConfig->getConfigList('key1');
         static::assertEquals(1, count($configList));
@@ -67,7 +73,7 @@ class Zxm_Pool_ConfigTest extends TestCase
 
     public function testGetConfigListLevelTwo()
     {
-        $poolConfig = new Zxm_Pool_Config($this->config);
+        $poolConfig = new ConfigPool($this->config);
 
         $configList = $poolConfig->getConfigList('key1', 2);
         static::assertEquals(2, count($configList));
@@ -77,7 +83,7 @@ class Zxm_Pool_ConfigTest extends TestCase
 
     public function testGetOriginalConfig()
     {
-        $poolConfig = new Zxm_Pool_Config($this->config);
+        $poolConfig = new ConfigPool($this->config);
         $originalConfig = $poolConfig->getOriginalConfig();
         static::assertEquals(count($this->config), count($originalConfig));
         static::assertEquals($this->config, $originalConfig);
@@ -85,7 +91,7 @@ class Zxm_Pool_ConfigTest extends TestCase
 
     public function testGetConfig()
     {
-        $poolConfig = new Zxm_Pool_Config($this->config);
+        $poolConfig = new ConfigPool($this->config);
         static::assertEquals($this->config[2], $poolConfig->getConfig('key1'));
         static::assertEquals($this->config[2], $poolConfig->getConfig('key2a'));
     }
@@ -95,7 +101,7 @@ class Zxm_Pool_ConfigTest extends TestCase
         $this->config[0]['weight'] = 1;
         $this->config[1]['weight'] = 0;
         $this->config[2]['weight'] = 0;
-        $poolConfig = new Zxm_Pool_Config($this->config);
+        $poolConfig = new ConfigPool($this->config);
         static::assertEquals($this->config[0], $poolConfig->getConfig('key1'));
     }
 
@@ -104,7 +110,7 @@ class Zxm_Pool_ConfigTest extends TestCase
      */
     public function testGetConfigMany()
     {
-        $poolConfig = new Zxm_Pool_Config($this->config);
+        $poolConfig = new ConfigPool($this->config);
 
         $counter = 200;
         while ($counter--) {
@@ -117,7 +123,7 @@ class Zxm_Pool_ConfigTest extends TestCase
      */
     public function testGetConfigMany2()
     {
-        $poolConfig = new Zxm_Pool_Config($this->config);
+        $poolConfig = new ConfigPool($this->config);
 
         $counter = 200;
         while ($counter--) {

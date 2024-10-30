@@ -77,7 +77,7 @@ class RandTest extends TestCase
         $tries = 0;
         do {
             $nodes = $hs->get(uniqid());
-            $idx = array_search($nodes[0], $nodeList);
+            $idx = array_search($nodes[0], $nodeList, true);
             if ($idx !== false) {
                 unset($nodeList[$idx]);
             }

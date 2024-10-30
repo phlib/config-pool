@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Phlib\ConfigPool;
 
 use Phlib\ConfigPool\HashStrategy\HashStrategyInterface;

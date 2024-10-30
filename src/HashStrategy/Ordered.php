@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Phlib\ConfigPool\HashStrategy;
 
 /**
@@ -34,13 +36,13 @@ class Ordered implements HashStrategyInterface
         $node = (string)$node;
         $weight = (int)$weight;
 
-        if (!in_array($node, $this->nodes)) {
+        if (!in_array($node, $this->nodes, true)) {
             // add the node to the nodes array
             if ($weight) {
-                $key = 'w'
-                    . str_pad($weight, 3, 0, STR_PAD_LEFT)
-                    . '.'
-                    . str_pad(--$this->counter, 3, 0, STR_PAD_LEFT);
+                $key = 'w' .
+                    str_pad((string)$weight, 3, '0', STR_PAD_LEFT) .
+                    '.' .
+                    str_pad((string)--$this->counter, 3, '0', STR_PAD_LEFT);
 
                 $this->nodes[$key] = $node;
                 $this->sorted = false;
@@ -60,7 +62,7 @@ class Ordered implements HashStrategyInterface
     {
         $node = (string)$node;
 
-        $nodeIndex = array_search($node, $this->nodes);
+        $nodeIndex = array_search($node, $this->nodes, true);
         if ($nodeIndex !== false) {
             // remove the found node
             unset($this->nodes[$nodeIndex]);

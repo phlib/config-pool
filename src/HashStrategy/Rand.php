@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Phlib\ConfigPool\HashStrategy;
 
 /**
@@ -29,7 +31,7 @@ class Rand implements HashStrategyInterface
         $node = (string)$node;
         $weight = (int)$weight;
 
-        if (!in_array($node, $this->nodes)) {
+        if (!in_array($node, $this->nodes, true)) {
             // add the node to the nodes array
             $this->nodes[] = $node;
 
@@ -51,7 +53,7 @@ class Rand implements HashStrategyInterface
     {
         $node = (string)$node;
 
-        $nodeIndex = array_search($node, $this->nodes);
+        $nodeIndex = array_search($node, $this->nodes, true);
         if ($nodeIndex !== false) {
             // remove the found node
             unset($this->nodes[$nodeIndex]);
@@ -59,7 +61,7 @@ class Rand implements HashStrategyInterface
             // loop the weighted list removing the nodes
             foreach ($this->weightedList as $idx => $listNode) {
                 // then remove it
-                if ($listNode == $node) {
+                if ($listNode === $node) {
                     unset($this->weightedList[$idx]);
                 }
             }

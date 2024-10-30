@@ -15,7 +15,7 @@ class ConfigPoolTest extends TestCase
     /**
      * @var array
      */
-    protected $config;
+    private $config;
 
     protected function setUp(): void
     {

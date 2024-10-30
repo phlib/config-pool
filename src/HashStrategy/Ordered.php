@@ -12,17 +12,17 @@ class Ordered implements HashStrategyInterface
     /**
      * @var array
      */
-    protected $nodes = [];
+    private $nodes = [];
 
     /**
      * @var int
      */
-    protected $counter = 1000;
+    private $counter = 1000;
 
     /**
      * @var bool
      */
-    protected $sorted = false;
+    private $sorted = false;
 
     /**
      * Add

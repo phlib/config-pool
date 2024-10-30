@@ -15,17 +15,17 @@ class ConfigPool
     /**
      * @var array
      */
-    protected $config;
+    private $config;
 
     /**
      * @var array
      */
-    protected $calculatedConfig = [];
+    private $calculatedConfig = [];
 
     /**
      * @var HashStrategyInterface
      */
-    protected $hashStrategy;
+    private $hashStrategy;
 
     public function __construct(array $config, HashStrategyInterface $hashStrategy = null)
     {
@@ -36,27 +36,18 @@ class ConfigPool
             // no hasher was provided
             $hashStrategy = new Ordered();
         }
+        $this->hashStrategy = $hashStrategy;
 
-        // setup the hashing
-        $this->setHashStrategy($hashStrategy);
+        $this->initHashStrategy();
     }
 
-    /**
-     * Set hash strategy
-     *
-     * @return $this
-     */
-    public function setHashStrategy(HashStrategyInterface $hashStrategy)
+    private function initHashStrategy(): void
     {
         // loop the config adding the key as a node
         foreach ($this->config as $key => $value) {
             $weight = $value['weight'] ?? 1;
-            $hashStrategy->add($key, $weight);
+            $this->hashStrategy->add($key, $weight);
         }
-
-        $this->hashStrategy = $hashStrategy;
-
-        return $this;
     }
 
     /**

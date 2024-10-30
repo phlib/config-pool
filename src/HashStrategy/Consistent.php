@@ -12,27 +12,27 @@ class Consistent implements HashStrategyInterface
     /**
      * @var int
      */
-    protected $replicas = 64;
+    private $replicas = 64;
 
     /**
      * @var array
      */
-    protected $nodes = [];
+    private $nodes = [];
 
     /**
      * @var array
      */
-    protected $circle = [];
+    private $circle = [];
 
     /**
      * @var array
      */
-    protected $positions = [];
+    private $positions = [];
 
     /**
      * @var string
      */
-    protected $hashType = 'crc32';
+    private $hashType = 'crc32';
 
     /**
      * @param string $hashType
@@ -118,7 +118,7 @@ class Consistent implements HashStrategyInterface
      * @param string $value
      * @return string
      */
-    protected function hash($value)
+    private function hash($value)
     {
         switch ($this->hashType) {
             case 'crc32':

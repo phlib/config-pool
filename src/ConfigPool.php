@@ -48,7 +48,8 @@ class ConfigPool
     {
         // loop the config adding the key as a node
         foreach ($this->config as $key => $value) {
-            $hashStrategy->add($key, array_get($value, 'weight', 1));
+            $weight = $value['weight'] ?? 1;
+            $hashStrategy->add($key, $weight);
         }
 
         $this->hashStrategy = $hashStrategy;

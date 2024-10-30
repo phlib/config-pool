@@ -11,32 +11,32 @@ use PHPUnit\Framework\TestCase;
  */
 class ConsistentTest extends TestCase
 {
-    public function testAddReturn()
+    public function testAddReturn(): void
     {
         $pool = new Consistent();
         static::assertSame($pool, $pool->add('server1'));
     }
 
-    public function testRemoveReturn()
+    public function testRemoveReturn(): void
     {
         $pool = new Consistent();
         static::assertSame($pool, $pool->remove('server1'));
     }
 
-    public function testGetReturn()
+    public function testGetReturn(): void
     {
         $pool = new Consistent();
         static::assertSame([], $pool->get('seed1'));
     }
 
-    public function testGetWithData()
+    public function testGetWithData(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
         static::assertSame(['server1'], $pool->get('seed1'));
     }
 
-    public function testGetWithDataTwo()
+    public function testGetWithDataTwo(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
@@ -46,7 +46,7 @@ class ConsistentTest extends TestCase
         static::assertSame(['server2', 'server1'], $pool->get('seed2', 2));
     }
 
-    public function testRemoveWithData()
+    public function testRemoveWithData(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
@@ -55,7 +55,7 @@ class ConsistentTest extends TestCase
         static::assertSame([], $pool->get('seed1'));
     }
 
-    public function testRemoveWithDataTwo()
+    public function testRemoveWithDataTwo(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
@@ -65,7 +65,7 @@ class ConsistentTest extends TestCase
         static::assertSame(['server2'], $pool->get('seed'));
     }
 
-    public function testGetWithDataMax()
+    public function testGetWithDataMax(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
@@ -75,7 +75,7 @@ class ConsistentTest extends TestCase
         static::assertSame(3, count($pool->get('seed1', 10)));
     }
 
-    public function testGetWithRandData()
+    public function testGetWithRandData(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
@@ -94,7 +94,7 @@ class ConsistentTest extends TestCase
         static::assertSame($expected, $actual);
     }
 
-    public function testGetWithRandDataOther()
+    public function testGetWithRandDataOther(): void
     {
         $pool = new Consistent();
         $pool->add('server1');
@@ -113,7 +113,7 @@ class ConsistentTest extends TestCase
         static::assertSame($expected, $actual);
     }
 
-    public function testGetWeight()
+    public function testGetWeight(): void
     {
         $pool = new Consistent();
         $pool->add('server1', 1);
@@ -123,7 +123,7 @@ class ConsistentTest extends TestCase
         static::assertSame(['server2'], $pool->get('seed1'));
     }
 
-    public function testGetWeightChange()
+    public function testGetWeightChange(): void
     {
         $pool = new Consistent();
         $pool->add('server1', 1);

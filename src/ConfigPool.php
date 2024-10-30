@@ -12,23 +12,16 @@ use Phlib\ConfigPool\HashStrategy\Ordered;
  */
 class ConfigPool
 {
-    /**
-     * @var array
-     */
-    private $config;
+    private array $config;
 
-    /**
-     * @var array
-     */
-    private $calculatedConfig = [];
+    private array $calculatedConfig = [];
 
-    /**
-     * @var HashStrategyInterface
-     */
-    private $hashStrategy;
+    private HashStrategyInterface $hashStrategy;
 
-    public function __construct(array $config, HashStrategyInterface $hashStrategy = null)
-    {
+    public function __construct(
+        array $config,
+        HashStrategyInterface $hashStrategy = null,
+    ) {
         // store the config array for later retrieval
         $this->config = $config;
 
@@ -46,18 +39,11 @@ class ConfigPool
         // loop the config adding the key as a node
         foreach ($this->config as $key => $value) {
             $weight = $value['weight'] ?? 1;
-            $this->hashStrategy->add($key, $weight);
+            $this->hashStrategy->add((string)$key, $weight);
         }
     }
 
-    /**
-     * Get config list
-     *
-     * @param string $seed
-     * @param int $count
-     * @return array
-     */
-    public function getConfigList($seed, $count = 1)
+    public function getConfigList(string $seed, int $count = 1): array
     {
         // find a calculated config list
         if (!array_key_exists("{$seed}.{$count}", $this->calculatedConfig)) {
@@ -81,13 +67,7 @@ class ConfigPool
         return $this->calculatedConfig["{$seed}.{$count}"];
     }
 
-    /**
-     * Get config
-     *
-     * @param string $seed
-     * @return array
-     */
-    public function getConfig($seed)
+    public function getConfig(string $seed): array
     {
         // return the first matching config key
         $index = $this->hashStrategy->get($seed, 1);
@@ -95,12 +75,7 @@ class ConfigPool
         return $this->config[$index[0]];
     }
 
-    /**
-     * Get config all
-     *
-     * @return array
-     */
-    public function getOriginalConfig()
+    public function getOriginalConfig(): array
     {
         return $this->config;
     }

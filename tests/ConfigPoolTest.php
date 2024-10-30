@@ -45,9 +45,17 @@ class ConfigPoolTest extends TestCase
     #[DataProvider('dataConfig')]
     public function testGetConfigListLevelOne(array $config): void
     {
+        $keys = array_keys($config);
         $hashStrategy = $this->createMock(Ordered::class);
         $hashStrategy->expects(static::exactly(3))
-            ->method('add');
+            ->method('add')
+            ->with(static::callback(function (string $key) use ($keys): bool {
+                static $counter = 0;
+                static::assertSame((string)$keys[$counter], $key);
+                $counter++;
+                return true;
+            }))
+            ->willReturnSelf();
 
         $firstKey = array_key_first($config);
         $hashStrategy->expects(static::once())
@@ -56,7 +64,7 @@ class ConfigPoolTest extends TestCase
                 static::equalTo('seed1'),
                 static::equalTo(1)
             )
-            ->willReturn([$firstKey]);
+            ->willReturn([(string)$keys[0]]);
 
         $poolConfig = new ConfigPool($config, $hashStrategy);
 

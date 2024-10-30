@@ -9,33 +9,14 @@ namespace Phlib\ConfigPool\HashStrategy;
  */
 class Ordered implements HashStrategyInterface
 {
-    /**
-     * @var array
-     */
-    private $nodes = [];
+    private array $nodes = [];
 
-    /**
-     * @var int
-     */
-    private $counter = 1000;
+    private int $counter = 1000;
 
-    /**
-     * @var bool
-     */
-    private $sorted = false;
+    private bool $sorted = false;
 
-    /**
-     * Add
-     *
-     * @param string $node
-     * @param int $weight
-     * @return static
-     */
-    public function add($node, $weight = 1)
+    public function add(string $node, int $weight = 1): static
     {
-        $node = (string)$node;
-        $weight = (int)$weight;
-
         if (!in_array($node, $this->nodes, true)) {
             // add the node to the nodes array
             if ($weight) {
@@ -52,16 +33,8 @@ class Ordered implements HashStrategyInterface
         return $this;
     }
 
-    /**
-     * Remove
-     *
-     * @param string $node
-     * @return static
-     */
-    public function remove($node)
+    public function remove(string $node): static
     {
-        $node = (string)$node;
-
         $nodeIndex = array_search($node, $this->nodes, true);
         if ($nodeIndex !== false) {
             // remove the found node
@@ -71,18 +44,8 @@ class Ordered implements HashStrategyInterface
         return $this;
     }
 
-    /**
-     * Get
-     *
-     * @param string $seed
-     * @param int $count
-     * @return array
-     */
-    public function get($seed, $count = 1)
+    public function get(string $seed, int $count = 1): array
     {
-        $seed = (string)$seed;
-        $count = (int)$count;
-
         if (!$this->sorted) {
             krsort($this->nodes, SORT_STRING);
             $this->sorted = true;

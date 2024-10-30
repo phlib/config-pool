@@ -11,32 +11,32 @@ use PHPUnit\Framework\TestCase;
  */
 class OrderedTest extends TestCase
 {
-    public function testAddReturn()
+    public function testAddReturn(): void
     {
         $hs = new Ordered();
         static::assertSame($hs, $hs->add('server1'));
     }
 
-    public function testRemoveReturn()
+    public function testRemoveReturn(): void
     {
         $hs = new Ordered();
         static::assertSame($hs, $hs->remove('server1'));
     }
 
-    public function testGetReturn()
+    public function testGetReturn(): void
     {
         $hs = new Ordered();
         static::assertSame([], $hs->get('seed1'));
     }
 
-    public function testGetWithData()
+    public function testGetWithData(): void
     {
         $hs = new Ordered();
         $hs->add('server1');
         static::assertSame(['server1'], $hs->get('seed1'));
     }
 
-    public function testRemoveWithData()
+    public function testRemoveWithData(): void
     {
         $hs = new Ordered();
         $hs->add('server1');
@@ -45,7 +45,7 @@ class OrderedTest extends TestCase
         static::assertSame([], $hs->get('seed1'));
     }
 
-    public function testRemoveWithDataTwo()
+    public function testRemoveWithDataTwo(): void
     {
         $hs = new Ordered();
         $hs->add('server1');
@@ -56,7 +56,7 @@ class OrderedTest extends TestCase
         static::assertSame(['server2'], $hs->get('seed1'));
     }
 
-    public function testGetWithDataMax()
+    public function testGetWithDataMax(): void
     {
         $hs = new Ordered();
         $hs->add('server1');
@@ -66,7 +66,7 @@ class OrderedTest extends TestCase
         static::assertSame(3, count($hs->get('seed1', 10)));
     }
 
-    public function testGetWeight()
+    public function testGetWeight(): void
     {
         $hs = new Ordered();
         $hs->add('server1', 1);
@@ -81,7 +81,7 @@ class OrderedTest extends TestCase
         static::assertSame(['server3', 'server2', 'server2a', 'server1'], $hs->get('test2', 100));
     }
 
-    public function testGetWeightChange()
+    public function testGetWeightChange(): void
     {
         $hs = new Ordered();
         $hs->add('server1', 0);

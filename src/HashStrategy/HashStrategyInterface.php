@@ -9,29 +9,9 @@ namespace Phlib\ConfigPool\HashStrategy;
  */
 interface HashStrategyInterface
 {
-    /**
-     * Add
-     *
-     * @param string $node
-     * @param int $weight
-     * @return static
-     */
-    public function add($node, $weight = 1);
+    public function add(string $node, int $weight = 1): static;
 
-    /**
-     * Remove
-     *
-     * @param string $node
-     * @return static
-     */
-    public function remove($node);
+    public function remove(string $node): static;
 
-    /**
-     * Get
-     *
-     * @param string $seed
-     * @param int $count
-     * @return array
-     */
-    public function get($seed, $count = 1);
+    public function get(string $seed, int $count = 1): array;
 }

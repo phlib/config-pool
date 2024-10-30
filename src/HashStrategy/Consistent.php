@@ -9,35 +9,17 @@ namespace Phlib\ConfigPool\HashStrategy;
  */
 class Consistent implements HashStrategyInterface
 {
-    /**
-     * @var int
-     */
-    private $replicas = 64;
+    private int $replicas = 64;
 
-    /**
-     * @var array
-     */
-    private $nodes = [];
+    private array $nodes = [];
 
-    /**
-     * @var array
-     */
-    private $circle = [];
+    private array $circle = [];
 
-    /**
-     * @var array
-     */
-    private $positions = [];
+    private array $positions = [];
 
-    /**
-     * @var string
-     */
-    private $hashType = 'crc32';
+    private string $hashType = 'crc32';
 
-    /**
-     * @param string $hashType
-     */
-    public function __construct($hashType = 'crc32')
+    public function __construct(string $hashType = 'crc32')
     {
         $availableTypes = ['crc32', 'md5'];
         if (!in_array($hashType, $availableTypes, true)) {
@@ -52,18 +34,8 @@ class Consistent implements HashStrategyInterface
         $this->hashType = $hashType;
     }
 
-    /**
-     * Add
-     *
-     * @param string $node
-     * @param int $weight
-     * @return static
-     */
-    public function add($node, $weight = 1)
+    public function add(string $node, int $weight = 1): static
     {
-        $node = (string)$node;
-        $weight = (int)$weight;
-
         // make sure we haven't already add this node
         if (!in_array($node, $this->nodes, true)) {
             // reset sorted positions, adding a node invalidates
@@ -81,16 +53,8 @@ class Consistent implements HashStrategyInterface
         return $this;
     }
 
-    /**
-     * Remove
-     *
-     * @param string $node
-     * @return static
-     */
-    public function remove($node)
+    public function remove(string $node): static
     {
-        $node = (string)$node;
-
         // find the node index for removal
         $nodeIndex = array_search($node, $this->nodes, true);
         if ($nodeIndex !== false) {
@@ -112,35 +76,19 @@ class Consistent implements HashStrategyInterface
         return $this;
     }
 
-    /**
-     * Hash
-     *
-     * @param string $value
-     * @return string
-     */
-    private function hash($value)
+    private function hash(string $value): string
     {
         switch ($this->hashType) {
             case 'crc32':
-                return crc32($value);
+                return (string)crc32($value);
 
             case 'md5':
                 return substr(md5($value), 0, 8);
         }
     }
 
-    /**
-     * Get
-     *
-     * @param string $seed
-     * @param int $count
-     * @return array
-     */
-    public function get($seed, $count = 1)
+    public function get(string $seed, int $count = 1): array
     {
-        $seed = (string)$seed;
-        $count = (int)$count;
-
         // this will be our lookup
         $hash = $this->hash($seed);
         // if the stored positions are empty then we need to calculate

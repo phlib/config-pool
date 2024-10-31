@@ -26,14 +26,14 @@ class ConsistentTest extends TestCase
     public function testGetReturn()
     {
         $pool = new Consistent();
-        static::assertSame([], $pool->get('key1'));
+        static::assertSame([], $pool->get('seed1'));
     }
 
     public function testGetWithData()
     {
         $pool = new Consistent();
         $pool->add('server1');
-        static::assertSame(['server1'], $pool->get('key1'));
+        static::assertSame(['server1'], $pool->get('seed1'));
     }
 
     public function testGetWithDataTwo()
@@ -41,18 +41,18 @@ class ConsistentTest extends TestCase
         $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
-        static::assertSame(['server1'], $pool->get('key1'));
-        static::assertSame(['server1', 'server2'], $pool->get('key1', 2));
-        static::assertSame(['server2', 'server1'], $pool->get('key2abc', 2));
+        static::assertSame(['server1'], $pool->get('seed'));
+        static::assertSame(['server1', 'server2'], $pool->get('seed', 2));
+        static::assertSame(['server2', 'server1'], $pool->get('seed2', 2));
     }
 
     public function testRemoveWithData()
     {
         $pool = new Consistent();
         $pool->add('server1');
-        static::assertSame(['server1'], $pool->get('key1'));
+        static::assertSame(['server1'], $pool->get('seed1'));
         $pool->remove('server1');
-        static::assertSame([], $pool->get('key1'));
+        static::assertSame([], $pool->get('seed1'));
     }
 
     public function testRemoveWithDataTwo()
@@ -60,9 +60,9 @@ class ConsistentTest extends TestCase
         $pool = new Consistent();
         $pool->add('server1');
         $pool->add('server2');
-        static::assertSame(['server1', 'server2'], $pool->get('key1', 2));
+        static::assertSame(['server1', 'server2'], $pool->get('seed', 2));
         $pool->remove('server1');
-        static::assertSame(['server2'], $pool->get('key1'));
+        static::assertSame(['server2'], $pool->get('seed'));
     }
 
     public function testGetWithDataMax()
@@ -72,7 +72,7 @@ class ConsistentTest extends TestCase
         $pool->add('server2');
         $pool->add('server3');
 
-        static::assertSame(3, count($pool->get('key1', 10)));
+        static::assertSame(3, count($pool->get('seed1', 10)));
     }
 
     /**
@@ -126,7 +126,7 @@ class ConsistentTest extends TestCase
         $pool->add('server2', 10);
         $pool->add('server3', 1);
 
-        static::assertSame(['server2'], $pool->get('key1'));
+        static::assertSame(['server2'], $pool->get('seed1'));
     }
 
     public function testGetWeightChange()
@@ -136,9 +136,9 @@ class ConsistentTest extends TestCase
         $pool->add('server2', 10);
         $pool->add('server3', 1);
 
-        static::assertSame(['server2'], $pool->get('key1'));
+        static::assertSame(['server2'], $pool->get('seed1'));
 
         $pool->add('server4', 100);
-        static::assertSame(['server4'], $pool->get('key1'));
+        static::assertSame(['server4'], $pool->get('seed1'));
     }
 }

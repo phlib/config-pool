@@ -62,44 +62,44 @@ class ConfigPool
     /**
      * Get config list
      *
-     * @param string $key
+     * @param string $seed
      * @param int $count
      * @return array
      */
-    public function getConfigList($key, $count = 1)
+    public function getConfigList($seed, $count = 1)
     {
         // find a calculated config list
-        if (!array_key_exists("{$key}.{$count}", $this->calculatedConfig)) {
+        if (!array_key_exists("{$seed}.{$count}", $this->calculatedConfig)) {
             // check we aren't storing too many calculated configs
             if (count($this->calculatedConfig) >= 100) {
                 // remove the fist in the list, should be the oldest
                 array_shift($this->calculatedConfig);
             }
 
-            // get a list of config keys using the count and key provided
+            // get a list of config keys using the count and seed provided
             $configList = [];
-            foreach ($this->hashStrategy->get($key, $count) as $index) {
+            foreach ($this->hashStrategy->get($seed, $count) as $index) {
                 // append the config values to the config list
                 $configList[] = $this->config[$index];
             }
 
             // store for later, a little config cache
-            $this->calculatedConfig["{$key}.{$count}"] = $configList;
+            $this->calculatedConfig["{$seed}.{$count}"] = $configList;
         }
 
-        return $this->calculatedConfig["{$key}.{$count}"];
+        return $this->calculatedConfig["{$seed}.{$count}"];
     }
 
     /**
      * Get config
      *
-     * @param string $key
+     * @param string $seed
      * @return array
      */
-    public function getConfig($key)
+    public function getConfig($seed)
     {
         // return the first matching config key
-        $index = $this->hashStrategy->get($key, 1);
+        $index = $this->hashStrategy->get($seed, 1);
 
         return $this->config[$index[0]];
     }

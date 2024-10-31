@@ -29,9 +29,9 @@ interface HashStrategyInterface
     /**
      * Get
      *
-     * @param string $key
+     * @param string $seed
      * @param int $count
      * @return array
      */
-    public function get($key, $count = 1);
+    public function get($seed, $count = 1);
 }

@@ -73,13 +73,13 @@ class Rand implements HashStrategyInterface
     /**
      * Get
      *
-     * @param string $key
+     * @param string $seed
      * @param int $count
      * @return array
      */
-    public function get($key, $count = 1)
+    public function get($seed, $count = 1)
     {
-        $key = (string)$key;
+        $seed = (string)$seed;
         $count = (int)$count;
 
         $weightedList = $this->weightedList;

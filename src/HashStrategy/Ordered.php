@@ -39,12 +39,12 @@ class Ordered implements HashStrategyInterface
         if (!in_array($node, $this->nodes, true)) {
             // add the node to the nodes array
             if ($weight) {
-                $key = 'w' .
+                $nodeIndex = 'w' .
                     str_pad((string)$weight, 3, '0', STR_PAD_LEFT) .
                     '.' .
                     str_pad((string)--$this->counter, 3, '0', STR_PAD_LEFT);
 
-                $this->nodes[$key] = $node;
+                $this->nodes[$nodeIndex] = $node;
                 $this->sorted = false;
             }
         }
@@ -74,13 +74,13 @@ class Ordered implements HashStrategyInterface
     /**
      * Get
      *
-     * @param string $key
+     * @param string $seed
      * @param int $count
      * @return array
      */
-    public function get($key, $count = 1)
+    public function get($seed, $count = 1)
     {
-        $key = (string)$key;
+        $seed = (string)$seed;
         $count = (int)$count;
 
         if (!$this->sorted) {

@@ -59,14 +59,14 @@ class ConfigPoolTest extends TestCase
         $hashStrategy->expects(static::once())
             ->method('get')
             ->with(
-                static::equalTo('key1'),
+                static::equalTo('seed1'),
                 static::equalTo(1)
             )
             ->willReturn([0]);
 
         $poolConfig = new ConfigPool($this->config, $hashStrategy);
 
-        $configList = $poolConfig->getConfigList('key1');
+        $configList = $poolConfig->getConfigList('seed1');
         static::assertSame(1, count($configList));
         static::assertSame($this->config[0], $configList[0]);
     }
@@ -75,7 +75,7 @@ class ConfigPoolTest extends TestCase
     {
         $poolConfig = new ConfigPool($this->config);
 
-        $configList = $poolConfig->getConfigList('key1', 2);
+        $configList = $poolConfig->getConfigList('seed1', 2);
         static::assertSame(2, count($configList));
         static::assertSame($this->config[2], $configList[0]);
         static::assertSame($this->config[0], $configList[1]);
@@ -92,8 +92,8 @@ class ConfigPoolTest extends TestCase
     public function testGetConfig()
     {
         $poolConfig = new ConfigPool($this->config);
-        static::assertSame($this->config[2], $poolConfig->getConfig('key1'));
-        static::assertSame($this->config[2], $poolConfig->getConfig('key2a'));
+        static::assertSame($this->config[2], $poolConfig->getConfig('seed1'));
+        static::assertSame($this->config[2], $poolConfig->getConfig('seed2a'));
     }
 
     public function testGetConfigWeighted()
@@ -102,7 +102,7 @@ class ConfigPoolTest extends TestCase
         $this->config[1]['weight'] = 0;
         $this->config[2]['weight'] = 0;
         $poolConfig = new ConfigPool($this->config);
-        static::assertSame($this->config[0], $poolConfig->getConfig('key1'));
+        static::assertSame($this->config[0], $poolConfig->getConfig('seed1'));
     }
 
     /**

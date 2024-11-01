@@ -37,8 +37,8 @@ class Consistent implements HashStrategyInterface
      */
     public function __construct($hashType = 'crc32')
     {
-        $availibleTypes = ['crc32', 'md5'];
-        if (!in_array($hashType, $availibleTypes)) {
+        $availableTypes = ['crc32', 'md5'];
+        if (!in_array($hashType, $availableTypes)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "Invalid hash hashType provided '%s'",
@@ -176,7 +176,7 @@ class Consistent implements HashStrategyInterface
         if ($found < $count) {
             // loop though every position
             foreach ($this->positions as $position) {
-                // this time we start collecting stright away
+                // this time we start collecting straight away
                 $node = $this->circle[$position];
                 // make sure we haven't collected this node already
                 if (!in_array($node, $collected)) {

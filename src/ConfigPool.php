@@ -66,7 +66,7 @@ class ConfigPool
      */
     public function getConfigList($key, $count = 1)
     {
-        // find a calcualted config list
+        // find a calculated config list
         if (!array_key_exists("{$key}.{$count}", $this->calculatedConfig)) {
             // check we aren't storing too many calculated configs
             if (count($this->calculatedConfig) >= 100) {

@@ -105,7 +105,7 @@ class RandTest extends TestCase
             $counts[$nodes[0]]++;
         } while ($loops--);
 
-        // asert they are within 10% tolerance
+        // assert they are within 10% tolerance
         static::assertEqualsWithDelta(500, $counts['server1'], 100);
         static::assertEqualsWithDelta(200, $counts['server2'], 100);
         static::assertEqualsWithDelta(300, $counts['server3'], 100);

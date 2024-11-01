@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Phlib\ConfigPool\HashStrategy;
 
+use Phlib\ConfigPool\Exception\InvalidArgumentException;
+
 /**
  * @package Phlib\ConfigPool
  */
@@ -23,7 +25,7 @@ class Consistent implements HashStrategyInterface
     {
         $availableTypes = ['crc32', 'md5'];
         if (!in_array($hashType, $availableTypes, true)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     "Invalid hash hashType provided '%s'",
                     $hashType

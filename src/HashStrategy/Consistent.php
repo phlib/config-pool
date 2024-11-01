@@ -77,13 +77,10 @@ class Consistent implements HashStrategyInterface
 
     private function hash(string $value): string
     {
-        switch ($this->hashType) {
-            case 'crc32':
-                return (string)crc32($value);
-
-            case 'md5':
-                return substr(md5($value), 0, 8);
-        }
+        return match ($this->hashType) {
+            'crc32' => (string)crc32($value),
+            'md5' => substr(md5($value), 0, 8),
+        };
     }
 
     public function get(string $seed, int $count = 1): array

@@ -105,9 +105,6 @@ class ConfigPoolTest extends TestCase
         static::assertSame($this->config[0], $poolConfig->getConfig('seed1'));
     }
 
-    /**
-     * @large
-     */
     public function testGetConfigMany()
     {
         $poolConfig = new ConfigPool($this->config);
@@ -118,9 +115,6 @@ class ConfigPoolTest extends TestCase
         }
     }
 
-    /**
-     * @large
-     */
     public function testGetConfigMany2()
     {
         $poolConfig = new ConfigPool($this->config);

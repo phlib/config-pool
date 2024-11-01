@@ -75,9 +75,6 @@ class ConsistentTest extends TestCase
         static::assertSame(3, count($pool->get('seed1', 10)));
     }
 
-    /**
-     * @large
-     */
     public function testGetWithRandData()
     {
         $pool = new Consistent();
@@ -97,9 +94,6 @@ class ConsistentTest extends TestCase
         static::assertSame($expected, $actual);
     }
 
-    /**
-     * @large
-     */
     public function testGetWithRandDataOther()
     {
         $pool = new Consistent();

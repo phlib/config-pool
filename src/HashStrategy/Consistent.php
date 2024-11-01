@@ -19,21 +19,18 @@ class Consistent implements HashStrategyInterface
 
     private array $positions = [];
 
-    private string $hashType = 'crc32';
-
-    public function __construct(string $hashType = 'crc32')
-    {
+    public function __construct(
+        private readonly string $hashType = 'crc32'
+    ) {
         $availableTypes = ['crc32', 'md5'];
-        if (!in_array($hashType, $availableTypes, true)) {
+        if (!in_array($this->hashType, $availableTypes, true)) {
             throw new InvalidArgumentException(
                 sprintf(
                     "Invalid hash hashType provided '%s'",
-                    $hashType
+                    $this->hashType
                 )
             );
         }
-
-        $this->hashType = $hashType;
     }
 
     public function add(string $node, int $weight = 1): static

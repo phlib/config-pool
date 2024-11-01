@@ -12,25 +12,12 @@ use Phlib\ConfigPool\HashStrategy\Ordered;
  */
 class ConfigPool
 {
-    private array $config;
-
     private array $calculatedConfig = [];
 
-    private HashStrategyInterface $hashStrategy;
-
     public function __construct(
-        array $config,
-        HashStrategyInterface $hashStrategy = null,
+        private readonly array $config,
+        private readonly HashStrategyInterface $hashStrategy = new Ordered(),
     ) {
-        // store the config array for later retrieval
-        $this->config = $config;
-
-        if ($hashStrategy === null) {
-            // no hasher was provided
-            $hashStrategy = new Ordered();
-        }
-        $this->hashStrategy = $hashStrategy;
-
         $this->initHashStrategy();
     }
 

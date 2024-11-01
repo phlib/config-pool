@@ -67,8 +67,8 @@ class ConfigPoolTest extends TestCase
         $poolConfig = new ConfigPool($this->config, $hashStrategy);
 
         $configList = $poolConfig->getConfigList('key1');
-        static::assertEquals(1, count($configList));
-        static::assertEquals($this->config[0], $configList[0]);
+        static::assertSame(1, count($configList));
+        static::assertSame($this->config[0], $configList[0]);
     }
 
     public function testGetConfigListLevelTwo()
@@ -76,24 +76,24 @@ class ConfigPoolTest extends TestCase
         $poolConfig = new ConfigPool($this->config);
 
         $configList = $poolConfig->getConfigList('key1', 2);
-        static::assertEquals(2, count($configList));
-        static::assertEquals($this->config[2], $configList[0]);
-        static::assertEquals($this->config[0], $configList[1]);
+        static::assertSame(2, count($configList));
+        static::assertSame($this->config[2], $configList[0]);
+        static::assertSame($this->config[0], $configList[1]);
     }
 
     public function testGetOriginalConfig()
     {
         $poolConfig = new ConfigPool($this->config);
         $originalConfig = $poolConfig->getOriginalConfig();
-        static::assertEquals(count($this->config), count($originalConfig));
-        static::assertEquals($this->config, $originalConfig);
+        static::assertSame(count($this->config), count($originalConfig));
+        static::assertSame($this->config, $originalConfig);
     }
 
     public function testGetConfig()
     {
         $poolConfig = new ConfigPool($this->config);
-        static::assertEquals($this->config[2], $poolConfig->getConfig('key1'));
-        static::assertEquals($this->config[2], $poolConfig->getConfig('key2a'));
+        static::assertSame($this->config[2], $poolConfig->getConfig('key1'));
+        static::assertSame($this->config[2], $poolConfig->getConfig('key2a'));
     }
 
     public function testGetConfigWeighted()
@@ -102,7 +102,7 @@ class ConfigPoolTest extends TestCase
         $this->config[1]['weight'] = 0;
         $this->config[2]['weight'] = 0;
         $poolConfig = new ConfigPool($this->config);
-        static::assertEquals($this->config[0], $poolConfig->getConfig('key1'));
+        static::assertSame($this->config[0], $poolConfig->getConfig('key1'));
     }
 
     /**
@@ -114,7 +114,7 @@ class ConfigPoolTest extends TestCase
 
         $counter = 200;
         while ($counter--) {
-            static::assertEquals(1, count($poolConfig->getConfigList(uniqid())));
+            static::assertSame(1, count($poolConfig->getConfigList(uniqid())));
         }
     }
 
@@ -127,7 +127,7 @@ class ConfigPoolTest extends TestCase
 
         $counter = 200;
         while ($counter--) {
-            static::assertEquals(2, count($poolConfig->getConfigList(uniqid(), 2)));
+            static::assertSame(2, count($poolConfig->getConfigList(uniqid(), 2)));
         }
     }
 }
